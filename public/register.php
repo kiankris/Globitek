@@ -25,14 +25,14 @@ if(is_post_request()){
 	if(is_blank($_POST["firstname"])){
 		$errors["firstname"] = "First name field cannot be empty";
 	}elseif(!has_length(trim($_POST["firstname"]), array("min"=>2, "max"=>255))){
-		$errors["firstname"]= "Your input for first name is invalid";
+		$errors["firstname"]= "First name must be between 2 and 255 characters";
 	}
 	$pos++;
 
 	if(is_blank($_POST["lastname"])){
 		$errors["lastname"] = "Last name field cannot be empty";
 	}elseif(!has_length(trim($_POST["lastname"]), array("min"=>2, "max"=>255))){
-		$errors["lastname"]= "Your input for last name is invalid";
+		$errors["lastname"]= "Last name must be between 2 and 255 characters";
 	}
 	$pos++;
 
@@ -40,6 +40,8 @@ if(is_post_request()){
 		$errors["email"] = "Email field cannot be empty";
 	}elseif(has_invalid_email_format($_POST["email"])){
 		$errors["email"]= "Invalid email address";	
+	}elseif(!has_length(trim($_POST["email"]), array("min"=>2, "max"=>255))){
+		$errors["email"]= "Email must be between 2 and 255 characters";
 	}elseif(has_whitespace($_POST["email"])){
 		$errors["email"]= "Email must not contain spaces";			
 	}
@@ -48,7 +50,7 @@ if(is_post_request()){
 	if(is_blank($_POST["username"])){
 		$errors["username"] = "Username field cannot be empty";
 	}elseif(!has_length(trim($_POST["username"]), array("min"=>8, "max"=>255))){
-		$errors["username"]= "username must be at least 8 characters long and contain no spaces";
+		$errors["username"]= "Username must be at least 8 characters long and contain no spaces";
 	}elseif(has_whitespace($_POST["username"])){
 		$errors["username"]= "Username must not contain spaces";
 	}
