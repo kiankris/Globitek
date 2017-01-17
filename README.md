@@ -15,7 +15,7 @@ Assuming that there were no errors the page will submit the data to the database
 Bonus functionality that has been implemented: usernames are required to be unique.
 
 ## Video Walkthrough
-
+![Demo] (https://github.com/kiankris/Globitek-CMS/blob/master/GlobitekDemo.gif)
 
 ## Notes
 
