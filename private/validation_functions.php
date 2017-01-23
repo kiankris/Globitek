@@ -26,4 +26,11 @@
     return strpos($value, '@') !== false;
   }
 
+  function is_unique_username($name=''){
+    $count_usernames = find_username($name);
+    $count = db_fetch_assoc($count_usernames);
+    db_free_result($count_usernames);
+    return (int) $count["count"] == 0;
+  }
+
 ?>

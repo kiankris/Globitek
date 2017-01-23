@@ -300,11 +300,10 @@
     $users_result = db_query($db, $sql);
     return $users_result;
   }
-
   // Find user using id
   function find_user_by_id($id=0) {
     global $db;
-    $sql = "SELECT * FROM users WHERE id='" . $id . "' LIMIT 1;";
+    $sql = "SELECT * FROM users WHERE id='" . db_escape($db, $id) . "' LIMIT 1;";
     $users_result = db_query($db, $sql);
     return $users_result;
   }
@@ -330,8 +329,13 @@
 
     if (is_blank($user['username'])) {
       $errors[] = "Username cannot be blank.";
-    } elseif (!has_length($user['username'], array('max' => 255))) {
+    } elseif (strcmp($user['username'], $user['orig_uname']) === 0) {
+      $ignore = true;
+    } 
+    elseif (!has_length($user['username'], array('max' => 255))) {
       $errors[] = "Username must be less than 255 characters.";
+    } elseif (!isset($ignore) && !is_unique_username($user['username'])){
+      $errors[] = "Username is already in use. Please create a different username.";
     }
     return $errors;
   }
@@ -350,11 +354,11 @@
     $sql = "INSERT INTO users ";
     $sql .= "(first_name, last_name, email, username, created_at) ";
     $sql .= "VALUES (";
-    $sql .= "'" . $user['first_name'] . "',";
-    $sql .= "'" . $user['last_name'] . "',";
-    $sql .= "'" . $user['email'] . "',";
-    $sql .= "'" . $user['username'] . "',";
-    $sql .= "'" . $created_at . "',";
+    $sql .= "'" . db_escape($db, $user['first_name']) . "',";
+    $sql .= "'" . db_escape($db, $user['last_name']) . "',";
+    $sql .= "'" . db_escape($db, $user['email']) . "',";
+    $sql .= "'" . db_escape($db, $user['username']) . "',";
+    $sql .= "'" . $created_at . "'";
     $sql .= ");";
     // For INSERT statments, $result is just true/false
     $result = db_query($db, $sql);
@@ -380,11 +384,11 @@
     }
 
     $sql = "UPDATE users SET ";
-    $sql .= "first_name='" . $user['first_name'] . "', ";
-    $sql .= "last_name='" . $user['last_name'] . "', ";
-    $sql .= "email='" . $user['email'] . "', ";
-    $sql .= "username='" . $user['username'] . "' ";
-    $sql .= "WHERE id='" . $user['id'] . "' ";
+    $sql .= "first_name='" . db_escape($db, $user['first_name']) . "', ";
+    $sql .= "last_name='" . db_escape($db, $user['last_name']) . "', ";
+    $sql .= "email='" . db_escape($db, $user['email']) . "', ";
+    $sql .= "username='" . db_escape($db, $user['username']) . "' ";
+    $sql .= "WHERE id='" . db_escape($db, $user['id']) . "' ";
     $sql .= "LIMIT 1;";
     // For update_user statments, $result is just true/false
     $result = db_query($db, $sql);
@@ -398,5 +402,13 @@
       exit;
     }
   }
+
+  function find_username($name){
+      global $db;
+      $sql = "SELECT COUNT(*) as 'count' FROM users WHERE username=";
+      $sql .= "'" . $name . "';";
+      $count_result = db_query($db, $sql);
+      return $count_result;
+    }
 
 ?>
