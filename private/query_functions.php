@@ -255,12 +255,19 @@
   function update_salesperson($salesperson) {
     global $db;
 
+    foreach ($salesperson as $key => $value) {
+      // printf($salesperson[$key]);
+      $salesperson[$key] = db_escape($db, $value);
+      // printf($salesperson[$key]);
+      
+    }
+
     $errors = validate_salesperson($salesperson);
     if (!empty($errors)) {
       return $errors;
     }
 
-    $sql = ""; // TODO add SQL
+    $sql = "Update salespeople SET"; // TODO add SQL
     // For update_salesperson statments, $result is just true/false
     $result = db_query($db, $sql);
     if($result) {
