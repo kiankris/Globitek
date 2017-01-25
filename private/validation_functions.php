@@ -33,4 +33,10 @@
     return (int) $count["count"] == 0;
   }
 
+  function has_valid_number_format($value){
+    $value = trim($value);
+    $value = str_replace('-', '', $value);
+    return preg_match("/^[0-9]{10, 11}$/", $value) !== false;
+  }
+
 ?>

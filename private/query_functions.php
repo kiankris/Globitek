@@ -221,7 +221,29 @@
   }
 
   function validate_salesperson($salesperson, $errors=array()) {
-    // TODO add validations
+    if (is_blank($salesperson['first_name'])) {
+      $errors[] = "First name cannot be blank.";
+    } elseif (!has_length($salesperson['first_name'], array('min' => 2, 'max' => 255))) {
+      $errors[] = "First name must be between 2 and 255 characters.";
+    }
+
+    if (is_blank($salesperson['last_name'])) {
+      $errors[] = "Last name cannot be blank.";
+    } elseif (!has_length($salesperson['last_name'], array('min' => 2, 'max' => 255))) {
+      $errors[] = "Last name must be between 2 and 255 characters.";
+    }
+
+    if (is_blank($salesperson['email'])) {
+      $errors[] = "Email cannot be blank.";
+    } elseif (!has_valid_email_format($salesperson['email'])) {
+      $errors[] = "Email must be a valid format.";
+    }
+
+    if(is_blank($salesperson['phone'])){
+      $errors[] = "Phone number cannot be blank.";
+    } elseif(!has_valid_number_format($salesperson['phone'])){
+      $errors[] = "Phone number must consist of numbers, may contain spaces, or '-'";
+    }
 
     return $errors;
   }
@@ -231,12 +253,15 @@
   function insert_salesperson($salesperson) {
     global $db;
 
+    $salesperson = db_e($db, $salesperson);
     $errors = validate_salesperson($salesperson);
     if (!empty($errors)) {
       return $errors;
     }
+    printf(implode(",", $salesperson));
+    $sql = "INSERT INTO salespeople (first_name, last_name, phone, email)"; 
+    $sql .= "VALUES (" . implode(",", $salesperson) .  ");";
 
-    $sql = ""; // TODO add SQL
     // For INSERT statments, $result is just true/false
     $result = db_query($db, $sql);
     if($result) {
@@ -254,13 +279,6 @@
   // Either returns true or an array of errors
   function update_salesperson($salesperson) {
     global $db;
-
-    foreach ($salesperson as $key => $value) {
-      // printf($salesperson[$key]);
-      $salesperson[$key] = db_escape($db, $value);
-      // printf($salesperson[$key]);
-      
-    }
 
     $errors = validate_salesperson($salesperson);
     if (!empty($errors)) {
@@ -335,14 +353,14 @@
     }
 
     if (is_blank($user['username'])) {
-      $errors[] = "Username cannot be blank.";
+      $errors[] = "username cannot be blank.";
     } elseif (strcmp($user['username'], $user['orig_uname']) === 0) {
       $ignore = true;
     } 
     elseif (!has_length($user['username'], array('max' => 255))) {
-      $errors[] = "Username must be less than 255 characters.";
+      $errors[] = "username must be less than 255 characters.";
     } elseif (!isset($ignore) && !is_unique_username($user['username'])){
-      $errors[] = "Username is already in use. Please create a different username.";
+      $errors[] = "username is already in use. Please create a different username.";
     }
     return $errors;
   }
@@ -367,6 +385,8 @@
     $sql .= "'" . db_escape($db, $user['username']) . "',";
     $sql .= "'" . $created_at . "'";
     $sql .= ");";
+      ?> <div><?php echo $sql; ?> </div> <?php 
+
     // For INSERT statments, $result is just true/false
     $result = db_query($db, $sql);
     if($result) {
