@@ -8,7 +8,7 @@
 
   <h1>States</h1>
 
-  <a href="#add_a_url">Add a State</a><br />
+  <a href="new.php">Add a State</a><br />
   <br />
 
   <?php
