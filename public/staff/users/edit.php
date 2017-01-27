@@ -56,6 +56,7 @@ if(is_post_request()) {
     <br />
     <input type="submit" name="submit" value="Update"  />
   </form>
+  <a href="show.php?id=<?php echo $user['id'];?>">Cancel</a>
 
 </div>
 

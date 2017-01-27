@@ -36,6 +36,18 @@
     return $output;
   }
 
+  function format_number($n = ''){
+  	$number = str_replace('-','',$n);
+		if(preg_match('/^(\d{1})(\d{3})(\d{3})(\d{4})$/', $number, $matches)){
+			$number = $matches[1] . '-' .$matches[2] . '-' . $matches[3] . '-' . $matches[4];
+		}
+
+		elseif(preg_match('/^(\d{3})(\d{3})(\d{4})$/', $number, $matches)){
+			$number = $matches[1] . '-' .$matches[2] . '-' . $matches[3];
+		}
+		return $number;
+  }
+
   function db_e($db, $array=array()){
     foreach ($array as $key => $value) {
       $array[$key] = db_escape($db, $value);

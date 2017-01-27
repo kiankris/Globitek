@@ -36,8 +36,9 @@
   <a href="index.php">Back to Salespeople List</a><br />
 
   <h1>Edit Salesperson: <?php echo $salesperson['first_name'] . " " . $salesperson['last_name']; ?></h1>
+  
+  <?php echo display_errors($errors); ?>
 
-  <!-- TODO add form -->
   <form action="edit.php?id=<?php echo $salesperson['id']; ?>" method="post">
     First name:<br />
     <input type="text" name="first_name" value="<?php echo $salesperson['first_name']; ?>" /><br />
@@ -50,6 +51,8 @@
     <br />
     <input type="submit" name="submit" value="Update"  />
   </form>
+  <a href="show.php?id=<?php echo $salesperson['id'];?>">Cancel</a>
+
 </div>
 
 <?php include(SHARED_PATH . '/footer.php'); ?>

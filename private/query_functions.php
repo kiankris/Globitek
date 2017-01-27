@@ -259,17 +259,15 @@
     }
 
     $salesperson = db_e($db, $salesperson);
+    $salesperson['phone'] = format_number($salesperson['phone']);
 
     $sql = "INSERT INTO salespeople (first_name, last_name, phone, email)"; 
     $sql .= "VALUES ('" . implode("','", $salesperson) . "');";
 
-    // For INSERT statments, $result is just true/false
     $result = db_query($db, $sql);
     if($result) {
       return true;
     } else {
-      // The SQL INSERT statement failed.
-      // Just show the error, not the form
       echo db_error($db);
       db_close($db);
       exit;
@@ -287,6 +285,7 @@
     }
 
     $salesperson = db_e($db, $salesperson);
+    $salesperson['phone'] = format_number($salesperson['phone']);
 
     $sql = "UPDATE salespeople SET ";
     $sql .= "first_name='" . $salesperson['first_name'] . "', ";
@@ -364,7 +363,7 @@
 
     if (is_blank($user['username'])) {
       $errors[] = "username cannot be blank.";
-    } elseif (strcmp($user['username'], $user['orig_uname']) === 0) {
+    } elseif (isset($user['orig_uname']) && strcmp($user['username'], $user['orig_uname']) === 0) {
       $ignore = true;
     } 
     elseif (!has_length($user['username'], array('max' => 255))) {

@@ -40,8 +40,7 @@
     // $value = preg_replace('/\s+/', '',$value);
     // printf(strlen($value));
     $value = str_replace('-', '', $value);
-    $result = preg_match("/^[0-9]{10,11}$/", $value)
-    ?> <div> <?php echo $value . "\t" . $result; ?> </div> <?php
+    $result = preg_match("/^[0-9]{10,11}$/", $value);
     return $result;
   }
 
