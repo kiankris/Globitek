@@ -39,6 +39,8 @@ if(is_post_request()) {
 
 <div id="main-content">
   <a href="index.php">Back to Users List</a><br />
+  <a href="show.php?id=<?php echo $user['id'];?>">Cancel</a>
+
 
   <h1>Edit User: <?php echo $user['first_name'] . " " . $user['last_name']; ?></h1>
 
@@ -56,7 +58,6 @@ if(is_post_request()) {
     <br />
     <input type="submit" name="submit" value="Update"  />
   </form>
-  <a href="show.php?id=<?php echo $user['id'];?>">Cancel</a>
 
 </div>
 

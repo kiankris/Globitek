@@ -34,6 +34,7 @@
 
 <div id="main-content">
   <a href="index.php">Back to Salespeople List</a><br />
+  <a href="show.php?id=<?php echo $salesperson['id'];?>">Cancel</a>
 
   <h1>Edit Salesperson: <?php echo $salesperson['first_name'] . " " . $salesperson['last_name']; ?></h1>
   
@@ -51,7 +52,6 @@
     <br />
     <input type="submit" name="submit" value="Update"  />
   </form>
-  <a href="show.php?id=<?php echo $salesperson['id'];?>">Cancel</a>
 
 </div>
 
