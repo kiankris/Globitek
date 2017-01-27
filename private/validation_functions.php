@@ -35,10 +35,7 @@
   }
 
   function has_valid_number_format($value){
-    // May allow for spaces later
-    // printf(strlen($value));
-    // $value = preg_replace('/\s+/', '',$value);
-    // printf(strlen($value));
+    $value = preg_replace('/\s+/', '',$value);
     $value = str_replace('-', '', $value);
     $result = preg_match("/^[0-9]{10,11}$/", $value);
     return $result;

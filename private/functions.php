@@ -37,7 +37,8 @@
   }
 
   function format_number($n = ''){
-  	$number = str_replace('-','',$n);
+    $number = preg_replace('/\s+/', '',$n);
+  	$number = str_replace('-','',$number);
 		if(preg_match('/^(\d{1})(\d{3})(\d{3})(\d{4})$/', $number, $matches)){
 			$number = $matches[1] . '-' .$matches[2] . '-' . $matches[3] . '-' . $matches[4];
 		}
