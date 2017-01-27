@@ -8,6 +8,28 @@ $states_result = find_state_by_id($_GET['id']);
 // No loop, only one result
 $state = db_fetch_assoc($states_result);
 
+if($state === NULL){
+  redirect_to('index.php');
+}
+$errors = array();
+
+if(is_post_request()) {
+
+  // Confirm that values are present before accessing them.
+  if(isset($_POST['first_name'])) {$state['first_name'] = h($_POST['first_name']); }
+  if(isset($_POST['last_name']))  {$state['last_name']  = h($_POST['last_name']);}
+  if(isset($_POST['statename']))  {$state['statename']  = h($_POST['statename']);}
+  if(isset($_POST['email']))      {$state['email']      = h($_POST['email']);}
+
+
+  $result = update_state($state);
+  if($result === true) {
+    redirect_to('show.php?id=' . $state['id']);
+  } else {
+    $errors = $result;
+  }
+}
+?
 ?>
 <?php $page_title = 'Staff: Edit State ' . $state['name']; ?>
 <?php include(SHARED_PATH . '/header.php'); ?>
