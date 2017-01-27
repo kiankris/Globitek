@@ -23,6 +23,7 @@
   function has_valid_email_format($value) {
     // Function can be improved later to check for
     // more than just '@'.
+    // include a check for .com or .edu or .gov
     return strpos($value, '@') !== false;
   }
 
@@ -34,9 +35,14 @@
   }
 
   function has_valid_number_format($value){
-    $value = trim($value);
+    // May allow for spaces later
+    // printf(strlen($value));
+    // $value = preg_replace('/\s+/', '',$value);
+    // printf(strlen($value));
     $value = str_replace('-', '', $value);
-    return preg_match("/^[0-9]{10, 11}$/", $value) !== false;
+    $result = preg_match("/^[0-9]{10,11}$/", $value)
+    ?> <div> <?php echo $value . "\t" . $result; ?> </div> <?php
+    return $result;
   }
 
 ?>

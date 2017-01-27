@@ -38,7 +38,7 @@
 
   function db_e($db, $array=array()){
     foreach ($array as $key => $value) {
-      $array[$key] = "'" . db_escape($db, $value) . "'";
+      $array[$key] = db_escape($db, $value);
     }
     return $array;
   }

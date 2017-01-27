@@ -242,7 +242,7 @@
     if(is_blank($salesperson['phone'])){
       $errors[] = "Phone number cannot be blank.";
     } elseif(!has_valid_number_format($salesperson['phone'])){
-      $errors[] = "Phone number must consist of numbers, may contain spaces, or '-'";
+      $errors[] = "Phone number must contain only numbers, '-' are allowed";
     }
 
     return $errors;
@@ -253,14 +253,15 @@
   function insert_salesperson($salesperson) {
     global $db;
 
-    $salesperson = db_e($db, $salesperson);
     $errors = validate_salesperson($salesperson);
     if (!empty($errors)) {
       return $errors;
     }
-    printf(implode(",", $salesperson));
+
+    $salesperson = db_e($db, $salesperson);
+
     $sql = "INSERT INTO salespeople (first_name, last_name, phone, email)"; 
-    $sql .= "VALUES (" . implode(",", $salesperson) .  ");";
+    $sql .= "VALUES ('" . implode("','", $salesperson) . "');";
 
     // For INSERT statments, $result is just true/false
     $result = db_query($db, $sql);
@@ -285,7 +286,16 @@
       return $errors;
     }
 
-    $sql = "Update salespeople SET"; // TODO add SQL
+    $salesperson = db_e($db, $salesperson);
+
+    $sql = "UPDATE salespeople SET ";
+    $sql .= "first_name='" . $salesperson['first_name'] . "', ";
+    $sql .= "last_name='"  . $salesperson['last_name']  . "', ";
+    $sql .= "email='"      . $salesperson['email']      . "', ";
+    $sql .= "phone='"      . $salesperson['phone']      . "' ";
+    $sql .= "WHERE id='"   . $salesperson['id']         . "' ";
+    $sql .= "LIMIT 1;";
+
     // For update_salesperson statments, $result is just true/false
     $result = db_query($db, $sql);
     if($result) {
@@ -423,7 +433,7 @@
       return true;
     } else {
       // The SQL UPDATE statement failed.
-      // Just show the error, not the form
+      // Just show the errro, not the form
       echo db_error($db);
       db_close($db);
       exit;

@@ -38,7 +38,18 @@
   <h1>Edit Salesperson: <?php echo $salesperson['first_name'] . " " . $salesperson['last_name']; ?></h1>
 
   <!-- TODO add form -->
-
+  <form action="edit.php?id=<?php echo $salesperson['id']; ?>" method="post">
+    First name:<br />
+    <input type="text" name="first_name" value="<?php echo $salesperson['first_name']; ?>" /><br />
+    Last name:<br />
+    <input type="text" name="last_name" value="<?php echo $salesperson['last_name']; ?>" /><br />
+    Phone:<br />
+    <input type="text" name="phone" value="<?php echo $salesperson['phone']; ?>" /><br />
+    Email:<br />
+    <input type="text" name="email" value="<?php echo $salesperson['email']; ?>" /><br />
+    <br />
+    <input type="submit" name="submit" value="Update"  />
+  </form>
 </div>
 
 <?php include(SHARED_PATH . '/footer.php'); ?>
