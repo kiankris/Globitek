@@ -20,7 +20,7 @@
   }
 
   // has_valid_email_format('test@test.com')
-  function has_valid_email_format($value) {
+  function has_valid_email_format($value='') {
     // Function can be improved later to check for
     // more than just '@'.
     // include a check for .com or .edu or .gov
@@ -34,11 +34,24 @@
     return (int) $count["count"] == 0;
   }
 
-  function has_valid_number_format($value){
+  function has_valid_number_format($value=''){
     $value = preg_replace('/\s+/', '',$value);
     $value = str_replace('-', '', $value);
     $result = preg_match("/^[0-9]{10,11}$/", $value);
     return $result;
+  }
+
+  function has_valid_name_format($name=''){
+    return preg_match('#^\p{Lu}#u', $name);
+  }
+
+  function has_valid_code_format($code=''){
+    return ctype_alpha($code) && ctype_upper($code);
+  }
+
+  function is_unique_code($code=''){
+    $code_results = find_code($code);
+    return false;
   }
 
 ?>

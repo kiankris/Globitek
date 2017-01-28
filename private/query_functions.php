@@ -28,6 +28,7 @@
   // Find all states, ordered by name
   function find_states_for_country_id($country_id=0) {
     global $db;
+    $country_id = db_escape($db, $country_id);
     $sql = "SELECT * FROM states ";
     $sql .= "WHERE country_id='" . $country_id . "' ";
     $sql .= "ORDER BY name ASC;";
@@ -38,6 +39,7 @@
   // Find state by ID
   function find_state_by_id($id=0) {
     global $db;
+    $id = db_escape($db, $id);
     $sql = "SELECT * FROM states ";
     $sql .= "WHERE id='" . $id . "';";
     $state_result = db_query($db, $sql);
@@ -45,7 +47,27 @@
   }
 
   function validate_state($state, $errors=array()) {
-    // TODO add validations
+    if (is_blank($state['name'])) {
+      $errors[] = "Name cannot be blank.";
+    } elseif (!has_length($state['name'], array('min' => 2, 'max' => 255))) {
+      $errors[] = "Name must be between 2 and 255 characters.";
+    } elseif (!has_valid_name_format($state['name'])) {
+      $errors[] = "Name may not contain numbers, first letter must be capitalized";
+    }
+
+    if (is_blank($state['code'])) {
+      $errors[] = "Code cannot be blank.";
+    } elseif (!has_length($state['code'], array('min' => 2, 'max' => 255))) {
+      $errors[] = "Code must be between 2 and 255 characters.";
+    } elseif (!has_valid_code_format($state['code'])) {
+      $errors[] = "Code must contain only letters and must be capitalized";
+    }
+
+    // if (is_blank($state['email'])) {
+    //   $errors[] = "Email cannot be blank.";
+    // } elseif (!has_valid_email_format($state['email'])) {
+    //   $errors[] = "Email must be a valid format.";
+    // }
 
     return $errors;
   }
@@ -55,13 +77,16 @@
   function insert_state($state) {
     global $db;
 
+    $state = db_e($db, $state);
     $errors = validate_state($state);
     if (!empty($errors)) {
       return $errors;
     }
 
-    $sql = ""; // TODO add SQL
-    // For INSERT statments, $result is just true/false
+    $sql = "INSERT INTO states"; 
+    $sql .= "(name, code)";
+    $sql .= "VALUES ('" . implode("','", $state) . "');";
+
     $result = db_query($db, $sql);
     if($result) {
       return true;
@@ -79,13 +104,24 @@
   function update_state($state) {
     global $db;
 
+    $state = db_e($db, $state);
     $errors = validate_state($state);
     if (!empty($errors)) {
       return $errors;
     }
 
-    $sql = ""; // TODO add SQL
-    // For update_state statments, $result is just true/false
+    // $sql = "UPDATE states SET ";
+    // $sql .= "name='"      . $state['name']  . "', "; 
+    // $sql .= "code='"      . $state['code']  . "' ";
+    // $sql .= "WHERE id='"  . $state['id']    . "' ";
+    // $sql .= "LIMIT 1;";
+
+    $sql = "UPDATE states SET "; 
+    $sql .= "name='" . $state['name'] . "', ";
+    $sql .= "code='" . $state['code'] . "' ";
+    $sql .= "WHERE id='" . $state['id'] . "' ";
+    $sql .= "LIMIT 1;";
+    
     $result = db_query($db, $sql);
     if($result) {
       return true;
@@ -114,6 +150,7 @@
   // Find all territories whose state_id (foreign key) matches this id
   function find_territories_for_state_id($state_id=0) {
     global $db;
+    $state_id = db_escape($db, $state_id);
     $sql = "SELECT * FROM territories ";
     $sql .= "WHERE state_id='" . $state_id . "' ";
     $sql .= "ORDER BY position ASC;";
@@ -124,6 +161,7 @@
   // Find territory by ID
   function find_territory_by_id($id=0) {
     global $db;
+    $id = db_escape($db, $id);
     $sql = "SELECT * FROM territories ";
     $sql .= "WHERE id='" . $id . "';";
     $territory_result = db_query($db, $sql);
@@ -141,6 +179,7 @@
   function insert_territory($territory) {
     global $db;
 
+    $territory = db_e($db, $territory);
     $errors = validate_territory($territory);
     if (!empty($errors)) {
       return $errors;
@@ -165,6 +204,7 @@
   function update_territory($territory) {
     global $db;
 
+    $territory = db_e($db, $territory);
     $errors = validate_territory($territory);
     if (!empty($errors)) {
       return $errors;
@@ -202,6 +242,8 @@
   // in the join table which have the same territory ID.
   function find_salespeople_for_territory_id($territory_id=0) {
     global $db;
+    $territory_id = db_escape($db, $territory_id);
+
     $sql = "SELECT * FROM salespeople ";
     $sql .= "LEFT JOIN salespeople_territories
               ON (salespeople_territories.salesperson_id = salespeople.id) ";
@@ -214,6 +256,8 @@
   // Find salesperson using id
   function find_salesperson_by_id($id=0) {
     global $db;
+    $id = db_escape($db, $id);
+
     $sql = "SELECT * FROM salespeople ";
     $sql .= "WHERE id='" . $id . "';";
     $salespeople_result = db_query($db, $sql);
@@ -253,12 +297,12 @@
   function insert_salesperson($salesperson) {
     global $db;
 
+    $salesperson = db_e($db, $salesperson);
     $errors = validate_salesperson($salesperson);
     if (!empty($errors)) {
       return $errors;
     }
 
-    $salesperson = db_e($db, $salesperson);
     $salesperson['phone'] = format_number($salesperson['phone']);
 
     $sql = "INSERT INTO salespeople (first_name, last_name, phone, email)"; 
@@ -279,15 +323,15 @@
   function update_salesperson($salesperson) {
     global $db;
 
+    $salesperson = db_e($db, $salesperson);
     $errors = validate_salesperson($salesperson);
     if (!empty($errors)) {
       return $errors;
     }
 
-    $salesperson = db_e($db, $salesperson);
     $salesperson['phone'] = format_number($salesperson['phone']);
 
-    $sql = "UPDATE salespeople SET ";
+		$sql = "UPDATE salespeople SET ";
     $sql .= "first_name='" . $salesperson['first_name'] . "', ";
     $sql .= "last_name='"  . $salesperson['last_name']  . "', ";
     $sql .= "email='"      . $salesperson['email']      . "', ";
@@ -295,13 +339,10 @@
     $sql .= "WHERE id='"   . $salesperson['id']         . "' ";
     $sql .= "LIMIT 1;";
 
-    // For update_salesperson statments, $result is just true/false
     $result = db_query($db, $sql);
     if($result) {
       return true;
     } else {
-      // The SQL UPDATE statement failed.
-      // Just show the error, not the form
       echo db_error($db);
       db_close($db);
       exit;
@@ -313,6 +354,7 @@
   // in the join table which have the same salesperson ID.
   function find_territories_by_salesperson_id($id=0) {
     global $db;
+    $id = db_escape($db, $id);
     $sql = "SELECT * FROM territories ";
     $sql .= "LEFT JOIN salespeople_territories
               ON (territories.id = salespeople_territories.territory_id) ";
@@ -337,7 +379,8 @@
   // Find user using id
   function find_user_by_id($id=0) {
     global $db;
-    $sql = "SELECT * FROM users WHERE id='" . db_escape($db, $id) . "' LIMIT 1;";
+    $id = db_escape($db, $id);
+    $sql = "SELECT * FROM users WHERE id='" . $id . "' LIMIT 1;";
     $users_result = db_query($db, $sql);
     return $users_result;
   }
@@ -379,6 +422,7 @@
   function insert_user($user) {
     global $db;
 
+    $user = db_e($db, $user);
     $errors = validate_user($user);
     if (!empty($errors)) {
       return $errors;
@@ -388,10 +432,10 @@
     $sql = "INSERT INTO users ";
     $sql .= "(first_name, last_name, email, username, created_at) ";
     $sql .= "VALUES (";
-    $sql .= "'" . db_escape($db, $user['first_name']) . "',";
-    $sql .= "'" . db_escape($db, $user['last_name']) . "',";
-    $sql .= "'" . db_escape($db, $user['email']) . "',";
-    $sql .= "'" . db_escape($db, $user['username']) . "',";
+    $sql .= "'" . $user['first_name'] . "',";
+    $sql .= "'" . $user['last_name']  . "',";
+    $sql .= "'" . $user['email']      . "',";
+    $sql .= "'" . $user['username']   . "',";
     $sql .= "'" . $created_at . "'";
     $sql .= ");";
       ?> <div><?php echo $sql; ?> </div> <?php 
@@ -414,17 +458,18 @@
   function update_user($user) {
     global $db;
 
+    $user = db_e($db, $user);
     $errors = validate_user($user);
     if (!empty($errors)) {
       return $errors;
     }
 
     $sql = "UPDATE users SET ";
-    $sql .= "first_name='" . db_escape($db, $user['first_name']) . "', ";
-    $sql .= "last_name='" . db_escape($db, $user['last_name']) . "', ";
-    $sql .= "email='" . db_escape($db, $user['email']) . "', ";
-    $sql .= "username='" . db_escape($db, $user['username']) . "' ";
-    $sql .= "WHERE id='" . db_escape($db, $user['id']) . "' ";
+    $sql .= "first_name='" . $user['first_name']. "', ";
+    $sql .= "last_name='"  . $user['last_name'] . "', ";
+    $sql .= "email='"      . $user['email']     . "', ";
+    $sql .= "username='"   . $user['username']  . "' ";
+    $sql .= "WHERE id='"   . $user['id']        . "' ";
     $sql .= "LIMIT 1;";
     // For update_user statments, $result is just true/false
     $result = db_query($db, $sql);
@@ -441,6 +486,8 @@
 
   function find_username($name){
       global $db;
+      $name= db_escape($db, $name);
+
       $sql = "SELECT COUNT(*) as 'count' FROM users WHERE username=";
       $sql .= "'" . $name . "';";
       $count_result = db_query($db, $sql);

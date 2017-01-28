@@ -30,7 +30,9 @@ if(is_post_request()) {
 
   <h1>New State</h1>
 
-  <!-- TODO add form -->
+  <?php echo display_errors($errors); ?>
+  
+
   <form action="new.php" method="post">
     Name:<br />
     <input type="text" name="name" value="<?php echo $state['name']; ?>" /><br />
