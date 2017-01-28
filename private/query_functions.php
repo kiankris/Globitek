@@ -438,7 +438,6 @@
     $sql .= "'" . $user['username']   . "',";
     $sql .= "'" . $created_at . "'";
     $sql .= ");";
-      ?> <div><?php echo $sql; ?> </div> <?php 
 
     // For INSERT statments, $result is just true/false
     $result = db_query($db, $sql);
@@ -494,4 +493,14 @@
       return $count_result;
     }
 
+  function find_code($code){
+    global $db;
+
+    $code = db_escape($db, $code);
+
+    $sql = "SELECT COUNT(*) as 'count' FROM states WHERE code=";
+    $sql .= "'" . $code . "';";
+    $count_result = db_query($db, $sql);
+    return $count_result;
+  }
 ?>

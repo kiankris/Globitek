@@ -51,7 +51,9 @@
 
   function is_unique_code($code=''){
     $code_results = find_code($code);
-    return false;
+    $count = db_fetch_assoc($code_results);
+    db_free_result($code_results);
+    return (int) $count['count'] == 0;
   }
 
 ?>
