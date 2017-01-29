@@ -55,16 +55,12 @@ The following **required** functionality is completed:
   * [ ]  Required: Verify query strings are not vulnerable to SQLI attacks.
   * [ ]  Required: Verify form inputs are not vulnerable to XSS attacks.
   * [ ]  Required: Verify query strings are not vulnerable to XSS attacks.
-  * [ ]  Required: Listed other bugs or security vulnerabilities
-
 
 The following advanced user stories are optional:
 
 - [ ]  Bonus: On "public/staff/territories/show.php", display the name of the state.
 
 - [ ]  Bonus: Validate the uniqueness of `users.username`.
-
-- [ ]  Bonus: Add a page for "public/staff/users/delete.php".
 
 ## Video Walkthrough
 
