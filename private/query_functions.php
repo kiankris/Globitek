@@ -61,6 +61,10 @@
       $errors[] = "Code must be between 2 and 255 characters.";
     } elseif (!has_valid_code_format($state['code'])) {
       $errors[] = "Code must contain only letters and must be capitalized";
+    } elseif (isset($state['orig_code']) && strcmp($state['orig_code'], $state['code']) === 0) {
+      // orig value == current, skip
+    } elseif (!is_unique_code($state['code'])) {
+      $errors[] = "State code already in use";
     }
 
     return $errors;
@@ -170,6 +174,7 @@
     } elseif (!has_valid_position_format($territory['position'])) {
       $errors[] = "Position must contain only numbers";
     } elseif (isset($territory['orig_position']) && strcmp($territory['position'], $territory['orig_position']) === 0) {
+      // orig value == current, skip
     } elseif (!is_unique_position($territory['position'], $territory['state_id'])){
       $errors[] = "Position for state has already been taken";
     }
@@ -415,11 +420,10 @@
 
     if (is_blank($user['username'])) {
       $errors[] = "username cannot be blank.";
-    } elseif (isset($user['orig_uname']) && strcmp($user['username'], $user['orig_uname']) === 0) {
-      $ignore = true;
-    } 
-    elseif (!has_length($user['username'], array('max' => 255))) {
+    } elseif (!has_length($user['username'], array('max' => 255))) {
       $errors[] = "username must be less than 255 characters.";
+    } elseif (isset($user['orig_uname']) && strcmp($user['username'], $user['orig_uname']) === 0) {
+      // orig value == current, skip
     } elseif (!isset($ignore) && !is_unique_username($user['username'])){
       $errors[] = "username is already in use. Please create a different username.";
     }

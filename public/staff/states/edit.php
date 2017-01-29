@@ -12,7 +12,7 @@ if($state === NULL){
   redirect_to('index.php');
 }
 $errors = array();
-
+$state['orig_code'] = $state['code'];
 if(is_post_request()) {
 
   // Confirm that values are present before accessing them.

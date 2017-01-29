@@ -35,6 +35,8 @@ if(is_post_request()) {
 
 <div id="main-content">
   <a href="../states/show.php?id=<?php echo $territory['state_id'];?>">Back to State Details</a><br />
+  <a href="show.php?id=<?php echo $territory['id'];?>">Cancel</a>
+
 
   <h1>Edit Territory: <?php echo $territory['name']; ?></h1>
 
