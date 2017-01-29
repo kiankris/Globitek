@@ -56,7 +56,7 @@ The following **required** functionality is completed:
   * [ ]  Required: Verify form inputs are not vulnerable to XSS attacks.
   * [ ]  Required: Verify query strings are not vulnerable to XSS attacks.
 
-The following advanced user stories are optional:
+The following optional user stories were also implemented:
 
 - [ ]  Bonus: On "public/staff/territories/show.php", display the name of the state.
 
