@@ -63,12 +63,6 @@
       $errors[] = "Code must contain only letters and must be capitalized";
     }
 
-    // if (is_blank($state['email'])) {
-    //   $errors[] = "Email cannot be blank.";
-    // } elseif (!has_valid_email_format($state['email'])) {
-    //   $errors[] = "Email must be a valid format.";
-    // }
-
     return $errors;
   }
 
@@ -110,12 +104,6 @@
       return $errors;
     }
 
-    // $sql = "UPDATE states SET ";
-    // $sql .= "name='"      . $state['name']  . "', "; 
-    // $sql .= "code='"      . $state['code']  . "' ";
-    // $sql .= "WHERE id='"  . $state['id']    . "' ";
-    // $sql .= "LIMIT 1;";
-
     $sql = "UPDATE states SET "; 
     $sql .= "name='" . $state['name'] . "', ";
     $sql .= "code='" . $state['code'] . "' ";
@@ -126,8 +114,6 @@
     if($result) {
       return true;
     } else {
-      // The SQL UPDATE statement failed.
-      // Just show the error, not the form
       echo db_error($db);
       db_close($db);
       exit;
@@ -169,8 +155,24 @@
   }
 
   function validate_territory($territory, $errors=array()) {
-    // TODO add validations
+    if (is_blank($territory['name'])) {
+      $errors[] = "Name cannot be blank.";
+    } elseif (!has_length($territory['name'], array('min' => 2, 'max' => 255))) {
+      $errors[] = "Name must be between 2 and 255 characters.";
+    } elseif (!has_valid_name_format($territory['name'])) {
+      $errors[] = "Name may not contain numbers, first letter must be capitalized";
+    }
 
+    if (is_blank($territory['position'])) {
+      $errors[] = "Position cannot be blank.";
+    } elseif (!has_length($territory['position'], array('min' => 1, 'max' => 11))) {
+      $errors[] = "Position must be between 1 and 11 numbers.";
+    } elseif (!has_valid_position_format($territory['position'])) {
+      $errors[] = "Position must contain only numbers";
+    } elseif (isset($territory['orig_position']) && strcmp($territory['position'], $territory['orig_position']) === 0) {
+    } elseif (!is_unique_position($territory['position'], $territory['state_id'])){
+      $errors[] = "Position for state has already been taken";
+    }
     return $errors;
   }
 
@@ -185,8 +187,10 @@
       return $errors;
     }
 
-    $sql = ""; // TODO add SQL
-    // For INSERT statments, $result is just true/false
+    $sql = "INSERT INTO territories"; 
+    $sql .= "(name, state_id, position)";
+    $sql .= "VALUES ('" . implode("', '", $territory) . "');";
+
     $result = db_query($db, $sql);
     if($result) {
       return true;
@@ -210,7 +214,12 @@
       return $errors;
     }
 
-    $sql = ""; // TODO add SQL
+    $sql = "UPDATE territories SET "; 
+    $sql .= "name='"     . $territory['name'] . "',";
+    $sql .= "state_id='" . $territory['state_id'] . "',";
+    $sql .= "position='" . $territory['position'] . "'";
+    $sql .= "WHERE id='" . $territory['id'] . "'";
+    $sql .= "LIMIT 1;";
     // For update_territory statments, $result is just true/false
     $result = db_query($db, $sql);
     if($result) {
@@ -502,5 +511,22 @@
     $sql .= "'" . $code . "';";
     $count_result = db_query($db, $sql);
     return $count_result;
+  }
+
+  function find_position($position, $state_id){
+    global $db;
+
+    $position = db_escape($db, $position);
+    $state_id = db_escape($db, $state_id);
+
+    
+    
+    $sql = "SELECT COUNT(*) as 'count' ";
+    $sql .= "FROM territories ";
+    $sql .= "WHERE position='". $position . "'";
+    $sql .= "AND state_id='"  . $state_id . "';"; 
+    $count_result = db_query($db, $sql);
+    return $count_result;
+
   }
 ?>

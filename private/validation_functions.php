@@ -49,10 +49,21 @@
     return ctype_alpha($code) && ctype_upper($code);
   }
 
+  function has_valid_position_format($position){
+    return ctype_digit($position);
+  }
+
   function is_unique_code($code=''){
     $code_results = find_code($code);
     $count = db_fetch_assoc($code_results);
     db_free_result($code_results);
+    return (int) $count['count'] == 0;
+  }
+
+  function is_unique_position($position='', $state_id=''){
+    $position_results = find_position($position, $state_id);
+    $count = db_fetch_assoc($position_results);
+    db_free_result($position_results);
     return (int) $count['count'] == 0;
   }
 

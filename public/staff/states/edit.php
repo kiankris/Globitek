@@ -2,14 +2,14 @@
 require_once('../../../private/initialize.php');
 
 if(!isset($_GET['id'])) {
-  // redirect_to('index.php');
+  redirect_to('index.php');
 }
 
 $states_result = find_state_by_id($_GET['id']);
 // No loop, only one result
 $state = db_fetch_assoc($states_result);
 if($state === NULL){
-  // redirect_to('index.php');
+  redirect_to('index.php');
 }
 $errors = array();
 

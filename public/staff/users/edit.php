@@ -6,16 +6,14 @@ if(!isset($_GET['id'])) {
 }
 
 $users_result = find_user_by_id($_GET['id']);
-// No loop, only one result
 $user = db_fetch_assoc($users_result);
 if($user === NULL){
   redirect_to('index.php');
 }
 
-$user['orig_uname'] = $user["username"];
-
 // Set default values for all variables the page needs.
 $errors = array();
+$user['orig_uname'] = $user["username"];
 
 if(is_post_request()) {
 
