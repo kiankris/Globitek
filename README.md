@@ -70,7 +70,9 @@ The following advanced user stories are optional:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://github.com/kiankris/Globitek-CMS-Sanitization/blob/master/Salespeople.gif' title='Salespeople Walkthrough' width='' alt='Salespeople Walkthrough Walkthrough' />
+
+<img src='https://github.com/kiankris/Globitek-CMS-Sanitization/blob/master/States_Territories.gif' title='States and Territories Walkthrough' width='' alt='States and Territories Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
