@@ -14,7 +14,7 @@ function key_encrypt($message, $key, $cipher_method=CIPHER_METHOD) {
 
 	$encrypted = openssl_encrypt($message, CIPHER_METHOD, $key, OPENSSL_RAW_DATA, $iv);
 	$encrypted_message = $iv . $encrypted;
-	
+
   return base64_encode($encrypted_message);
 }
 
@@ -42,18 +42,23 @@ const PUBLIC_KEY_CONFIG = array(
 );
 
 function generate_keys($config=PUBLIC_KEY_CONFIG) {
-  $private_key = 'Ha ha!';
-  $public_key = 'Ho ho!';
+	$resource = openssl_pkey_new($config);
+	openssl_pkey_export($resource, $private_key);
+	$key_details = openssl_pkey_get_details($resource);
+  $public_key = $key_details["key"];
 
   return array('private' => $private_key, 'public' => $public_key);
 }
 
 function pkey_encrypt($string, $public_key) {
-  return 'Qnex Funqbj jvyy or jngpuvat lbh';
+	openssl_public_encrypt($string, $encrypted, $public_key);
+  return base64_encode($encrypted);
 }
 
 function pkey_decrypt($string, $private_key) {
-  return 'Alc evi csy pssomrk livi alir csy wlsyph fi wezmrk ETIB?';
+	$ciphertext = base64_decode($string);
+	openssl_private_decrypt($ciphertext, $decrypt, $private_key);
+  return $decrypt;
 }
 
 
