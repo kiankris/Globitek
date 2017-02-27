@@ -19,16 +19,16 @@ function key_encrypt($message, $key, $cipher_method=CIPHER_METHOD) {
 }
 
 function key_decrypt($string, $key, $cipher_method=CIPHER_METHOD) {
-		$key = str_pad($key, 32, '*');
-		$iv_with_ciphertext = base64_decode($string);
+	$key = str_pad($key, 32, '*');
+	$iv_with_ciphertext = base64_decode($string);
 
-		$iv_length = openssl_cipher_iv_length(CIPHER_METHOD);
-		$iv = substr($iv_with_ciphertext, 0, $iv_length);
-		$ciphertext = substr($iv_with_ciphertext, $iv_length);
+	$iv_length = openssl_cipher_iv_length(CIPHER_METHOD);
+	$iv = substr($iv_with_ciphertext, 0, $iv_length);
+	$ciphertext = substr($iv_with_ciphertext, $iv_length);
 
-		$plaintext = openssl_decrypt($ciphertext, CIPHER_METHOD, $key, OPENSSL_RAW_DATA, $iv);
+	$plaintext = openssl_decrypt($ciphertext, CIPHER_METHOD, $key, OPENSSL_RAW_DATA, $iv);
 
-		return $plaintext;
+	return $plaintext;
 }
 
 
