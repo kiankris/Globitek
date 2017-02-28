@@ -10,6 +10,9 @@
   $agent_result = find_agent_by_id($id);
   // No loop, only one result
   $agent = db_fetch_assoc($agent_result);
+	if($agent === Null){
+		redirect_to('index.php');
+	}
 
 ?>
 
@@ -43,6 +46,8 @@
         <div>
           <input type="submit" name="submit" value="Submit">
         </div>
+				<input type="hidden" name="sender_id" value="<?php echo 1;?>"/>
+				<input type="hidden" name="receiver_id" value="<?php echo h(u($agent['id']));?>"/>
       </form>
     
     </div>

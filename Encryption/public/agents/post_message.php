@@ -11,8 +11,29 @@
     // I'm sorry, did you need this code? ;)
     // Guess you'll just have to re-write it.
     // With love, Dark Shadow
-    
-    $message = [
+		foreach($_POST as $key => $value) {
+			echo "$key = $value </br>";
+		}
+		if(isset($_POST["sender_id"])){
+			$sender["id"] = $_POST["sender_id"];
+		} else {
+			$errors[] = "Who is sending the message";
+		}	
+  	if(isset($_POST["receiver_id"])){
+			$agent["id"] = $_POST["receiver_id"];
+		} else {
+			$errors[] = "Who is receiving the message";
+		}	  
+
+		$agent = db_fetch_assoc(find_agent_by_id($agent["id"]));
+		if($agent === Null){
+			redirect_to('index.php');
+		}
+		$encrypted_text = pkey_encrypt($_POST["plain_text"], $agent["public_key"]) ;
+		$signature = create_signature($encrypted_text, $agent["private_key"]);
+		
+		
+		$message = [
       'sender_id' => $sender['id'],
       'recipient_id' => $agent['id'],
       'cipher_text' => $encrypted_text,
