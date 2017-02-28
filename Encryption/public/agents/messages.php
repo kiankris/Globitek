@@ -29,9 +29,11 @@
 
     <h1>Messages for <?php echo h($agent['codename']); ?></h1>
     
-    <?php if($current_user['id'] == $agent['id']) { ?>
-      <p>Your messages are automatically decrypted using your private key.</p>
-    <?php } ?>
+		<?php 
+			if($current_user['id'] == $agent['id']) { 
+				echo "<p>Your messages are automatically decrypted using your private key.</p>";
+			} 	
+		?>
     
     <table>
       <tr>
@@ -45,7 +47,11 @@
       <?php while($message = db_fetch_assoc($message_result)) { ?>
         <?php
           $created_at = strtotime($message['created_at']);
-          
+  				$sender_result = find_agent_by_id($message["sender_id"]);
+  				$sender = db_fetch_assoc($sender_result);
+					$message_text = $message["cipher_text"];
+					$result = verify_signature($message_text, $message["signature"], $sender["public_key"]);
+					$validity_text = $result === 1 ? "Valid" : "Not valid";
           // Oooops.
           // My finger accidentally hit the delete-key.
           // Sorry, APEX!!!

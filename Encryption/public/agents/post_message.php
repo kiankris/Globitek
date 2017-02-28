@@ -11,11 +11,13 @@
     // I'm sorry, did you need this code? ;)
     // Guess you'll just have to re-write it.
     // With love, Dark Shadow
-		foreach($_POST as $key => $value) {
-			echo "$key = $value </br>";
-		}
+		
+		// foreach($_POST as $key => $value) {
+			// echo "$key = $value </br>";
+		// }
 		if(isset($_POST["sender_id"])){
-			$sender["id"] = $_POST["sender_id"];
+  		$sender_result = find_agent_by_id($_POST["sender_id"]);
+  		$sender = db_fetch_assoc($agent_result);
 		} else {
 			$errors[] = "Who is sending the message";
 		}	
@@ -30,7 +32,7 @@
 			redirect_to('index.php');
 		}
 		$encrypted_text = pkey_encrypt($_POST["plain_text"], $agent["public_key"]) ;
-		$signature = create_signature($encrypted_text, $agent["private_key"]);
+		$signature = create_signature($encrypted_text, $sender["private_key"]);
 		
 		
 		$message = [
