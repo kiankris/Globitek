@@ -76,4 +76,12 @@ function verify_signature($data, $signature, $public_key) {
 
 }
 
+function create_checksum($data){
+	return sha1($data);
+}
+
+function verify_checksum($data, $checksum){
+	return sha1($data) == $checksum;
+}
+
 ?>
