@@ -54,6 +54,10 @@
           <label for="encode_algorithm">Algorithm</label>
           <select name="encode_algorithm">
             <option value="AES-256-CBC">AES-256-CBC</option>
+            <option value="AES-128-CBC">AES-128-CBC</option>
+            <option value="AES-192-CBC">AES-192-CBC</option>
+            <option value= "DES-EDE3-CBC">DES-EDE3-CBC</option>
+            <option value="BF-CBC">BF-CBC</option>
           </select>
         </div>
         <div>
