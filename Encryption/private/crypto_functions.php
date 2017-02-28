@@ -65,13 +65,15 @@ function pkey_decrypt($string, $private_key) {
 // Digital signatures using public/private keys
 
 function create_signature($data, $private_key) {
-  // A-Za-z : ykMwnXKRVqheCFaxsSNDEOfzgTpYroJBmdIPitGbQUAcZuLjvlWH
-  return 'RpjJ WQL BImLcJo QLu dQv vJ oIo Iu WJu?';
+	openssl_sign($data, $raw_signature, $private_key);
+  return base64_encode($raw_signature);
 }
 
 function verify_signature($data, $signature, $public_key) {
-  // Vigenère
-  return 'RK, pym oays onicvr. Iuw bkzhvbw uedf pke conll rt ZV nzxbhz.';
+	$raw_signature = base64_decode($signature);
+	$raw_result = openssl_verify($data, $raw_signature, $public_key);
+	return $raw_result;
+
 }
 
 ?>
