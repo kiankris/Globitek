@@ -30,6 +30,9 @@
   }
 
 	function selected($value){
+    echo isset($_POST[$value]) . "</br>";
+    echo$_POST[$value]==$value . "</br>";
+    
 		if (isset($_POST[$value]) && $_POST[$value]==$value)
 			echo "selected"; 
 	}
