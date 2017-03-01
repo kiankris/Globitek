@@ -29,11 +29,15 @@
     return $_SERVER['REQUEST_METHOD'] == 'GET';
   }
 
-	function selected($value){
-    echo isset($_POST[$value]) . "</br>";
-    echo$_POST[$value]==$value . "</br>";
-    
-		if (isset($_POST[$value]) && $_POST[$value]==$value)
+	function selected($value, $entry){
+		if ($entry == 1) {
+			$entry = "encode_algorithm";										
+		}
+		else{
+			$entry = "decode_algorithm";							
+		}
+
+		if (isset($_POST[$entry]) && $_POST[$entry]==$value)
 			echo "selected"; 
 	}
 
