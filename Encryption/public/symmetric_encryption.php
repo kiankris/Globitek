@@ -66,7 +66,6 @@
 						<option value="AES-128-CBC" <?php selected("AES-128-CBC",1);?> >AES-128-CBC</option>
             <option value="AES-192-CBC" <?php selected("AES-192-CBC",1);?> >AES-192-CBC</option>
             <option value="DES-EDE3-CBC" <?php selected("DES-EDE3-CBC",1);?> >DES-EDE3-CBC</option>
-            <option value="BF-CBC" <?php selected("BF-CBC",1);?> >BF-CBC</option>
           </select>
         </div>
         <div>
@@ -99,7 +98,6 @@
 						<option value="AES-128-CBC" <?php selected("AES-128-CBC",2);?> >AES-128-CBC</option>
             <option value="AES-192-CBC" <?php selected("AES-192-CBC",2);?> >AES-192-CBC</option>
             <option value="DES-EDE3-CBC" <?php selected("DES-EDE3-CBC",2);?> >DES-EDE3-CBC</option>
-            <option value="BF-CBC" <?php selected("BF-CBC",1);?> >BF-CBC</option>
           </select>
         </div>
         <div>

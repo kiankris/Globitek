@@ -7,7 +7,7 @@ const AES_256 ='AES-256-CBC';
 const AES_128 ='AES-128-CBC'; 
 const AES_192 ='AES-192-CBC'; 
 const DES = "DES-EDE3-CBC"; 
-const BF ='BF-CB'; 
+const BF ='BF-CBC'; 
 
 function key_length($cipher_method){
 				switch($cipher_method){
@@ -15,7 +15,7 @@ function key_length($cipher_method){
 				case AES_192: 
 				case DES: return 24;
 				case AES_256: return 32;
-				case BF: return 0;//random(4, 56)
+				case BF: return rand(4, 56); 
 				default: return -1;
 				}
 }
@@ -24,7 +24,7 @@ function key_encrypt($message, $key, $cipher_method=AES_256) {
 	
 	$length = key_length($cipher_method);
 	
-	echo "$length $cipher_method </br>";
+	echo "Cipher method: $cipher_method Length: $length </br>";
 	$key = str_pad($key, $length, '*');
 
 	$iv_length = openssl_cipher_iv_length($cipher_method);
@@ -37,8 +37,8 @@ function key_encrypt($message, $key, $cipher_method=AES_256) {
 }
 
 function key_decrypt($string, $key, $cipher_method=AES_256) {
-	echo "Cipher method: $cipher_method";
 	$length = key_length($cipher_method);
+	echo "Cipher method: $cipher_method Length: $length </br>";
 	$key = str_pad($key, $length, '*');
 	$iv_with_ciphertext = base64_decode($string);
 
