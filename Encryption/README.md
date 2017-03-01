@@ -58,9 +58,20 @@ The following objectives are **optional**:
   * [X]  Track down the bugs in the code and fix them.
 
 * Bonus Objective 2\.
-  * [ ]  Write a report of your discoveries (longer than 300 characters).
-  * [ ]  Compose a secure email for sending over an insecure network.
-  * [ ]  Include the email with your encrypted report in this README.
+  * [X]  Write a report of your discoveries (longer than 300 characters).
+  * [X]  Compose a secure email for sending over an insecure network.
+  * [X]  Include the email with your encrypted report in this README.
+
+To: APEX Headquarters
+From: agent99
+Subject: Report
+Body:
+
+LMyIBpsth67Ui6ba8DlWPZ/LoHaG/OWmGvFTXAKI4soOUYzjrgVspeLT2q1cFUg1QkTFdr2a/QTKZme3eoQpbjHTOYpAvok+RwIF0taeCZg2/ORHqjFg5QT17yTlLhoNDKtA07zoLcIRYew0IU51QBhvxLp81K2VmXRoTE5bZVjtZUQpNMAWSF6iirQnapleNnY76wnO4bJni+UOl1Bb3kqaBADnDpAvg+b09WraFzJtAyM1IORT0XCV/LWk3EtrPJydzWHOXLA4APQGjPZjwcBXkQTLa+2THJKH9B5W6CwI/QXYRY+4HnGGm6Yey5wpXPNkij09BcQ+dZZfw0hEEw==
+
+Signature:
+
+XbgSxGjNNPFGVBcLwYIP4SPuohUUZHzXGZ20EwbKjrw9O8+EzgXDZBUIobZfUT3JrEQJBjuu2FpFYo/fLn6UGGqZUEdvsAE0+Ir4+jCBYpaDF1Kn1AV0a7Pydn7+V8w4rqLEreaiSgnLJCrclcCNGEN3EQjgtqmAPV0GgSYj8K/WuDrqyYY7nXVsCV6DCZjPkPgG/L0KQWgmQyVUj3BRsQFV+YF4BUKlZoajKtzM51qsteCWaeD2XgXX2utsMvFFaXCI2njGETQeDklqCSow8NuAggrOYoT9V/xLKm9bdCUHT3H3BP+R2TBYBvZRKVnwkQTOoIHwJRXkHxB9owJSbg==
 
 * Bonus Objective 3\.
   * [X]  Add a "Create/Verify Checksum" section to the Encryption Tools area.
@@ -78,8 +89,9 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+For Bonus Objective 2, the message is limited to 245 characters. I considered increasing this to 400 but when I tried to do so the encrypted result was not displaying prompting me to leave it at 245.  
 
+Verifying that my results were correct was relatively tedious in that I did not have a nice tool that would let me encrypt/decrypt and sign messages very quickly outside of using the functions that I had built.
 ## License
 
     Copyright 2017 Kiankris Villagonzalo
