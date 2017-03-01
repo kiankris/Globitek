@@ -101,7 +101,7 @@ function create_checksum($data){
 }
 
 function verify_checksum($data, $checksum){
-	return sha1($data) == $checksum;
+	return create_checksum($data) == $checksum;
 }
 
 ?>

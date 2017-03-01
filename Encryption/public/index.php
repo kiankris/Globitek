@@ -20,6 +20,7 @@
       <li><a href="generate_keys.php">Generate Public-Private Keys</a></li>
       <li><a href="asymmetric_encryption.php">Asymmetric Encrypt/Decrypt</a></li>
       <li><a href="digital_signature.php">Create/Verify Signature</a></li>
+      <li><a href="checksum.php">Create/Verify Checksum</a></li>
     </ul>
     
     <hr />
