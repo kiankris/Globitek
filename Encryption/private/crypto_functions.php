@@ -3,7 +3,6 @@
 // Symmetric Encryption
 
 // Cipher method to use for symmetric encryption
-const CIPHER_METHOD = 'AES-256-CBC';
 const AES_256 ='AES-256-CBC'; 
 const AES_128 ='AES-128-CBC'; 
 const AES_192 ='AES-192-CBC'; 
@@ -20,7 +19,7 @@ function key_length($cipher_method){
 				default: return -1;
 				}
 }
-function key_encrypt($message, $key, $cipher_method=CIPHER_METHOD) {
+function key_encrypt($message, $key, $cipher_method=AES_256) {
 	// create a key of legth 32
 	
 	$length = key_length($cipher_method);
@@ -28,24 +27,26 @@ function key_encrypt($message, $key, $cipher_method=CIPHER_METHOD) {
 	echo "$length $cipher_method </br>";
 	$key = str_pad($key, $length, '*');
 
-	$iv_length = openssl_cipher_iv_length(CIPHER_METHOD);
+	$iv_length = openssl_cipher_iv_length($cipher_method);
 	$iv = openssl_random_pseudo_bytes($iv_length);
 
-	$encrypted = openssl_encrypt($message, CIPHER_METHOD, $key, OPENSSL_RAW_DATA, $iv);
+	$encrypted = openssl_encrypt($message, $cipher_method, $key, OPENSSL_RAW_DATA, $iv);
 	$encrypted_message = $iv . $encrypted;
 
   return base64_encode($encrypted_message);
 }
 
-function key_decrypt($string, $key, $cipher_method=CIPHER_METHOD) {
-	$key = str_pad($key, 32, '*');
+function key_decrypt($string, $key, $cipher_method=AES_256) {
+	echo "Cipher method: $cipher_method";
+	$length = key_length($cipher_method);
+	$key = str_pad($key, $length, '*');
 	$iv_with_ciphertext = base64_decode($string);
 
-	$iv_length = openssl_cipher_iv_length(CIPHER_METHOD);
+	$iv_length = openssl_cipher_iv_length($cipher_method);
 	$iv = substr($iv_with_ciphertext, 0, $iv_length);
 	$ciphertext = substr($iv_with_ciphertext, $iv_length);
 
-	$plaintext = openssl_decrypt($ciphertext, CIPHER_METHOD, $key, OPENSSL_RAW_DATA, $iv);
+	$plaintext = openssl_decrypt($ciphertext, $cipher_method, $key, OPENSSL_RAW_DATA, $iv);
 
 	return $plaintext;
 }

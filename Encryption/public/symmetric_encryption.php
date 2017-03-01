@@ -14,9 +14,9 @@
     if(isset($_POST['encode_key'])) {
     
       // This is an encode request
-      $plain_text = isset($_POST['plain_text']) ? $_POST['plain_text'] : nil;
-      $encode_key = isset($_POST['encode_key']) ? $_POST['encode_key'] : nil;
-      $cipher_method = isset($_POST['encode_algorithm']) ? $_POST['encode_algorithm'] : nil;
+      $plain_text = isset($_POST['plain_text']) ? $_POST['plain_text'] : '';
+      $encode_key = isset($_POST['encode_key']) ? $_POST['encode_key'] : '';
+      $cipher_method = isset($_POST['encode_algorithm']) ? $_POST['encode_algorithm'] : '';
       $encrypted_text = key_encrypt($plain_text, $encode_key, $cipher_method);
       $cipher_text = $encrypted_text;
 
@@ -26,9 +26,10 @@
     } else {
     
       // This is a decode request
-      $cipher_text = isset($_POST['cipher_text']) ? $_POST['cipher_text'] : nil;
-      $decode_key = isset($_POST['decode_key']) ? $_POST['decode_key'] : nil;
-			$decrypted_text = key_decrypt($cipher_text, $decode_key);
+      $cipher_text = isset($_POST['cipher_text']) ? $_POST['cipher_text'] : '';
+      $decode_key = isset($_POST['decode_key']) ? $_POST['decode_key'] : '';
+      $cipher_method = isset($_POST['decode_algorithm']) ? $_POST['decode_algorithm'] : '';
+			$decrypted_text = key_decrypt($cipher_text, $decode_key, $cipher_method);
 			
 			// changes the encode option to the current decode option
 			$_POST["encode_algorithm"] = $_POST["decode_algorithm"];
