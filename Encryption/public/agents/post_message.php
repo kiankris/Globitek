@@ -17,7 +17,7 @@
 		// }
 		if(isset($_POST["sender_id"])){
   		$sender_result = find_agent_by_id($_POST["sender_id"]);
-  		$sender = db_fetch_assoc($agent_result);
+  		$sender = db_fetch_assoc($sender_result);
 		} else {
 			$errors[] = "Who is sending the message";
 		}	

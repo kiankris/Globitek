@@ -30,10 +30,12 @@ The following **required** functionality is completed:
   * [X]  Required: Include a response message in this README
 
 To: sydneybristow
-From: agent99
-Subject: Re: Encrypted and Signed Message
-Body:
 
+From: agent99
+
+Subject: Re: Encrypted and Signed Message
+
+Body:
 uiI5P+0VCiAbtq89+plfOHCqDB9ddcpWyhaa1bo/fjl1aTc80SVLLMHYNUT+eG8Du1f/gCjZcJsboOcJGyx/E0YlN5Zswpzd16crfhF+bxn6NhIO2XfP9HuBaQsrLMUkxQcMWey89huyBbpUfR/S7f3lvP/DVnF0oNS1B/GCKxgl1ZBW1C+pfqskwh2eOPgghlJgwPluNdfssPrigHq/MjMFkjSVMxAN7wSdCt9ZlEcrOscvgt9j4xiV9FVwIYFdpSR38OfJMYwZcLHj+ZFzDn6ltR4cqHoQCCrEjSHC8sOphXqYAL09Yv4SLz1NMQradTHI2v4MDLn2ogGo/G//lbFbVyIRC7HvZGYUfmZTpN2e0DZxrn9fy/+24tdjjjC0yY0f1UX60cjmXIL7G336VBT2J5kWlwHNewEZ5ymQNGJ11Xp85a+6k57Be5/BNNS8j+qcMOt8ibATBJI+N85njE4hmur/VvYaLKuUA0baxW27pg+Qv1ri3fVOJHszgaydufvDWMlgFk4qz2Y9GLrf9/iwevW10Bk6QvqNwhiLYchjKi+V/3Oz4ELWSTrDnOu34zo77vNN2KEzvNcJT3BHYJGCUHRCaJfhya6Gcu66ipAsqiYeuyoBfNMBtXwCzzm3hJeqIhaSDL8AggdEORuxtA==
 
 Signature:
@@ -48,7 +50,7 @@ xqvVXm4ScNS7XHYJTeM+6FFAcY/jKA6rKXcz4QWhu2+Ok8mrwj8OI7bbn/qxwl/ataEs8xoM+i0ZSnnt
 
 8\. Identify the Double Agent
   * [X]  Required: Decrypt as many email messages as possible
-  * [X]  Required: Identify the double agent: austinpowers
+  * [X]  Required: Identify the double agent: natasha
 
 The following objectives are **optional**:
 
@@ -96,6 +98,4 @@ Describe any challenges encountered while building the app.
 
 
     Cannot access APEX from this location. Send new agent codename and public key so I can contact. Encrypt response to protect codename. Include signature to verify identity and message integrity. -- sydneybristow
-
-I heard about your current situation. Do you know who hacked APEX? -- The Chairman
 
