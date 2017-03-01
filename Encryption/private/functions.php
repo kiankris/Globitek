@@ -29,6 +29,11 @@
     return $_SERVER['REQUEST_METHOD'] == 'GET';
   }
 
+	function selected($value){
+		if (isset($_POST[$value]) && $_POST[$value]==$value)
+			echo "selected"; 
+	}
+
   function display_errors($errors=array()) {
     $output = '';
     if (!empty($errors)) {

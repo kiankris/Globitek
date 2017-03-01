@@ -4,10 +4,29 @@
 
 // Cipher method to use for symmetric encryption
 const CIPHER_METHOD = 'AES-256-CBC';
+const AES_256 ='AES-256-CBC'; 
+const AES_128 ='AES-128-CBC'; 
+const AES_192 ='AES-192-CBC'; 
+const DES = "DES-EDE3-CBC"; 
+const BF ='BF-CB'; 
 
+function key_length($cipher_method){
+				switch($cipher_method){
+				case AES_128: return 16;
+				case AES_192: 
+				case DES: return 24;
+				case AES_256: return 32;
+				case BF: return 0;//random(4, 56)
+				default: return -1;
+				}
+}
 function key_encrypt($message, $key, $cipher_method=CIPHER_METHOD) {
 	// create a key of legth 32
-	$key = str_pad($key, 32, '*');
+	
+	$length = key_length($cipher_method);
+	
+	echo "$length $cipher_method </br>";
+	$key = str_pad($key, $length, '*');
 
 	$iv_length = openssl_cipher_iv_length(CIPHER_METHOD);
 	$iv = openssl_random_pseudo_bytes($iv_length);
