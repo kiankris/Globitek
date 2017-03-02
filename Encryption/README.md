@@ -83,7 +83,7 @@ XbgSxGjNNPFGVBcLwYIP4SPuohUUZHzXGZ20EwbKjrw9O8+EzgXDZBUIobZfUT3JrEQJBjuu2FpFYo/f
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://github.com/kiankris/Globitek/blob/master/Encryption/EncryptionDemo.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
