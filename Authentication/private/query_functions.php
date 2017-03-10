@@ -516,6 +516,14 @@
     } elseif (!is_unique_username($user['username'], $user['id'])) {
       $errors[] = "Username not allowed. Try another.";
     }
+
+		if (is_blank($user["password"])) {
+			$errors[] = "Password cannot be blank";
+		} else if (is_blank($user["confirm"])){
+			$errors[] = "Password confirmation cannot be blank";
+		} else if (strcmp($user["password"],$user["confirm"]) != 0){
+			$errors[] = "Passwords do not match";
+		}
     return $errors;
   }
 
