@@ -50,4 +50,12 @@
     return $output;
   }
 
+	function h_p($password){
+		return password_hash($password, PASSWORD_BCRYPT);
+	}
+
+	function v_p($attempt, $hash){
+		return password_verify($attempt, $hash);
+	}
+
 ?>
