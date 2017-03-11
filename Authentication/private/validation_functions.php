@@ -56,4 +56,12 @@
     return true;  // username is not used by anyone
   }
 
+	function valid_password($password){
+		$uppercase = preg_match("@[A-Z]@", $password);
+		$lowercase = preg_match("@[a-z]@", $password);
+		$number = preg_match("@[0-9]@", $password);
+		$symbol = preg_match('/[^A-Za-z0-9\s]/', $password);
+		return $uppercase && $lowercase && $number && $symbol;
+	}
+
 ?>

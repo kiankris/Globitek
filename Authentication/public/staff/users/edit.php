@@ -21,7 +21,7 @@ if(is_post_request() && request_is_same_domain()) {
   if(isset($_POST['username'])) { $user['username'] = $_POST['username']; }
   if(isset($_POST['email'])) { $user['email'] = $_POST['email']; }
   if(isset($_POST['password'])) { $user['password'] = $_POST['password']; }
-  if(isset($_POST['password_conf'])) { $user['password_conf'] = $_POST['password_conf']; }
+  if(isset($_POST['confirm'])) { $user['confirm'] = $_POST['confirm']; }
 
 
   $result = update_user($user);
@@ -55,7 +55,7 @@ if(is_post_request() && request_is_same_domain()) {
     Password:<br />
     <input type="password" name="password" /><br />
     Password Confirmation:<br />
-    <input type="password" name="password_conf" /><br />
+    <input type="password" name="confirm" /><br />
 		<p>
 			Passwords should be at least 12 characters and include at least one uppercase letter, lowercase letter, number, and symbol.
 		</p>

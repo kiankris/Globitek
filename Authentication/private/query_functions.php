@@ -521,9 +521,13 @@
 			$errors[] = "Password cannot be blank";
 		} else if (is_blank($user["confirm"])){
 			$errors[] = "Password confirmation cannot be blank";
-		} else if (strcmp($user["password"],$user["confirm"]) != 0){
+		} else if (!valid_password($user["password"])){
+			$errors[] = "Password must contain one uppercase and lowercase letter, a number, and a symbol";	
+		} else if (!has_length($user["password"], array("min" => 12))){
+			$errors[] = "Password must be at least 12 characters long";
+		}else if (strcmp($user["password"],$user["confirm"]) != 0){
 			$errors[] = "Passwords do not match";
-		}
+		} 
     return $errors;
   }
 
@@ -539,12 +543,13 @@
 
     $created_at = date("Y-m-d H:i:s");
     $sql = "INSERT INTO users ";
-    $sql .= "(first_name, last_name, email, username, created_at) ";
+    $sql .= "(first_name, last_name, email, username, hashed_password, created_at) ";
     $sql .= "VALUES (";
     $sql .= "'" . db_escape($db, $user['first_name']) . "',";
     $sql .= "'" . db_escape($db, $user['last_name']) . "',";
     $sql .= "'" . db_escape($db, $user['email']) . "',";
     $sql .= "'" . db_escape($db, $user['username']) . "',";
+    $sql .= "'" . db_escape($db, $user['password']) . "',";
     $sql .= "'" . $created_at . "'";
     $sql .= ");";
     // For INSERT statements, $result is just true/false
