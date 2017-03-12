@@ -1,15 +1,11 @@
 <?php
 require_once('../../private/initialize.php');
 
-// Until we learn about encryption, we will use an unencrypted
-// master password as a stand-in. It should go without saying
-// that this should *never* be done in real production code.
-$master_password = 'secret';
-
 // Set default values for all variables the page needs.
 $errors = array();
 $username = '';
 $password = '';
+$master_password = "secret";
 
 if(is_post_request() && request_is_same_domain()) {
   ensure_csrf_token_valid();
@@ -25,10 +21,13 @@ if(is_post_request() && request_is_same_domain()) {
   if (is_blank($password)) {
     $errors[] = "Password cannot be blank.";
   }
+	if (($locked = throttle_time($username)) > 0){
+		$time = ceil($locked / 60);
+		$errors[] = "Too many failed logins for this username. You will need to wait $time minutes before attempting another login.";
+	}
 
   // If there were no errors, submit data to database
   if (empty($errors)) {
-
     $users_result = find_users_by_username($username);
     // No loop, only one result
     $user = db_fetch_assoc($users_result);
@@ -37,15 +36,18 @@ if(is_post_request() && request_is_same_domain()) {
         // Username found, password matches
         log_in_user($user);
         // Redirect to the staff menu after login
-        redirect_to('index.php');
-      } else {
+				redirect_to('index.php');
+			} else {
         // Username found, but password does not match.
         $errors[] = "Log in was unsuccessful.";
       }
     } else {
       // No username found
-      $errors[] ="Log in was not successful.";
+      $errors[] = "Log in was unsuccessful.";
     }
+		
+		record_failed_login($username);
+		
   }
 }
 

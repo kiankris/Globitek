@@ -7,6 +7,9 @@
     $_SESSION['user_id'] = $user['id'];
     $_SESSION['last_login'] = time();
     $_SESSION['user_agent'] = $_SERVER['HTTP_USER_AGENT'];
+    $fl_result = find_failed_login($user["username"]);
+    $failed_login = db_fetch_assoc($fl_result);
+		reset_failed_login($failed_login);
     return true;
   }
 

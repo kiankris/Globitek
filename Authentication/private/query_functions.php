@@ -616,5 +616,85 @@
     }
   }
 
+	function record_failed_login($username) {
+		global $db;
 
+		$sql_date = date("Y-m-d H:i:s"); 
+		$fl_result = find_failed_login($username);
+		$failed_login = db_fetch_assoc($fl_result);
+		if(!$failed_login) {
+			$failed_login = [
+				'username' => $username,
+				"count" => 1,
+				"last_attempt" => $sql_date
+			];
+			insert_failed_login($failed_login);
+		} else {
+			$failed_login["count"] += 1;
+			$failed_login["last_attempt"] = $sql_date;
+			update_failed_login($failed_login);
+		}
+		return true;
+	}
+
+
+	function insert_failed_login($login){
+		global $db;
+
+		$sql = "INSERT INTO failed_logins ";
+		$sql .= "(username, count, last_attempt) ";
+		$sql .= "VALUES (";
+		$sql .= "'" . db_escape($db, $login["username"]) . "',";
+		$sql .= "'" . db_escape($db, $login["count"]) . "',";
+		$sql .= "'" . db_escape($db, $login["last_attempt"]) . "'";
+		$sql .= ");";
+
+		$result = db_query($db, $sql);
+    if($result) {
+      return true;
+    } else {
+      // The SQL INSERT statement failed.
+      // Just show the error, not the form
+      echo db_error($db);
+      db_close($db);
+      exit;
+    }
+ 
+	}
+	function update_failed_login($login) {
+		global $db;
+
+    $sql = "UPDATE failed_logins SET ";
+    $sql .= "username='" . db_escape($db, $login['username']) . "', ";
+    $sql .= "count='" . db_escape($db, $login['count']) . "', ";
+    $sql .= "last_attempt='" . db_escape($db, $login['last_attempt']) . "' ";
+    $sql .= "WHERE id='" . db_escape($db, $login['id']) . "' ";
+    $sql .= "LIMIT 1;";
+
+    // For update_country statements, $result is just true/false
+    $result = db_query($db, $sql);
+    if($result) {
+      return true;
+    } else {
+      // The SQL UPDATE statement failed.
+      // Just show the error, not the form
+      echo db_error($db);
+      db_close($db);
+      exit;
+    }
+
+ 
+	}
+	function find_failed_login($username){
+		global $db;
+		$sql = "SELECT * FROM failed_logins ";
+		$sql .= "WHERE username='" .db_escape ($db, $username) . "';";
+		$failed_login_result = db_query($db, $sql);
+		return $failed_login_result;
+	}
+
+	function reset_failed_login($login){
+		$login["count"] = 0;
+		return update_failed_login($login);
+	}
 ?>
