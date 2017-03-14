@@ -22,6 +22,10 @@ if(is_post_request() && request_is_same_domain()) {
   if(isset($_POST['email'])) { $user['email'] = $_POST['email']; }
   if(isset($_POST['password'])) { $user['password'] = $_POST['password']; }
   if(isset($_POST['confirm'])) { $user['confirm'] = $_POST['confirm']; }
+	
+	// If the password is blank, unset it so that the user does not need to
+	// type their password in to change other information
+	if(is_blank($user["password"])){ unset($user["password"]); }
 
 
   $result = update_user($user);

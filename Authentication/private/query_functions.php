@@ -517,17 +517,19 @@
       $errors[] = "Username not allowed. Try another.";
     }
 
-		if (is_blank($user["password"])) {
-			$errors[] = "Password cannot be blank";
-		} else if (is_blank($user["confirm"])){
-			$errors[] = "Password confirmation cannot be blank";
-		} else if (!valid_password($user["password"])){
-			$errors[] = "Password must contain one uppercase and lowercase letter, a number, and a symbol";	
-		} else if (!has_length($user["password"], array("min" => 12))){
-			$errors[] = "Password must be at least 12 characters long";
-		}else if (strcmp($user["password"],$user["confirm"]) != 0){
-			$errors[] = "Passwords do not match";
-		} 
+		if (isset($user["password"])){
+			if (is_blank($user["password"])) {
+				$errors[] = "Password cannot be blank";
+			} else if (is_blank($user["confirm"])){
+				$errors[] = "Password confirmation cannot be blank";
+			} else if (!valid_password($user["password"])){
+				$errors[] = "Password must contain one uppercase and lowercase letter, a number, and a symbol";	
+			} else if (!has_length($user["password"], array("min" => 12))){
+				$errors[] = "Password must be at least 12 characters long";
+			}else if (strcmp($user["password"],$user["confirm"]) != 0){
+				$errors[] = "Passwords do not match";
+			} 
+		}
     return $errors;
   }
 
@@ -580,6 +582,10 @@
     $sql .= "last_name='" . db_escape($db, $user['last_name']) . "', ";
     $sql .= "email='" . db_escape($db, $user['email']) . "', ";
     $sql .= "username='" . db_escape($db, $user['username']) . "' ";
+
+		if(isset($user["password"])) 
+			$sql .= ", hashed_password='" . db_escape($db, h_p($user["password"])) . "' ";
+
     $sql .= "WHERE id='" . db_escape($db, $user['id']) . "' ";
     $sql .= "LIMIT 1;";
     // For update_user statements, $result is just true/false
