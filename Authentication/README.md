@@ -47,10 +47,10 @@ The following advanced user stories are optional:
   * [X]  `update_user` only encrypts and updates the password when the password is not blank.
 
 * Bonus Objective 3\.
-  * [ ]  Create a new user using cost 10.
-  * [ ]  Set bcrypt "cost" parameter to 11 (for both insert and update).
-  * [ ]  Try to login with the "cost 10" user.
-  * [ ]  Briefly describe why login still works even after the cost is changed:
+  * [X]  Create a new user using cost 10.
+  * [X]  Set bcrypt "cost" parameter to 11 (for both insert and update).
+  * [X]  Try to login with the "cost 10" user.
+  * [X]  Briefly describe why login still works even after the cost is changed: The password_hash algorithm returns the algorithm, salt, and cost as part of the returned hash. Thus when password_verify is called on the password and hash it will extract the neeeded hashing algorithm, salt, and cost so that it can hash the given password and compare it to the given hash. 
 
 * Bonus Objective 4\.
   * [ ]  Add "Previous password" to "public/staff/users/edit.php"

@@ -51,7 +51,7 @@
   }
 
 	function h_p($password){
-		return password_hash($password, PASSWORD_BCRYPT);
+		return password_hash($password, PASSWORD_BCRYPT, array("cost" => 11));
 	}
 
 	function v_p($attempt, $hash){
