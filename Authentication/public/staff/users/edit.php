@@ -22,6 +22,7 @@ if(is_post_request() && request_is_same_domain()) {
   if(isset($_POST['email'])) { $user['email'] = $_POST['email']; }
   if(isset($_POST['password'])) { $user['password'] = $_POST['password']; }
   if(isset($_POST['confirm'])) { $user['confirm'] = $_POST['confirm']; }
+  if(isset($_POST['old_password'])) { $user['old_password'] = $_POST['old_password']; }
 	
 	// If the password is blank, unset it so that the user does not need to
 	// type their password in to change other information
@@ -60,6 +61,8 @@ if(is_post_request() && request_is_same_domain()) {
     <input type="password" name="password" /><br />
     Password Confirmation:<br />
     <input type="password" name="confirm" /><br />
+		Previous Password: <br />
+		<input type="password" name="old_password"/> <br/>
 		<p>
 			Passwords should be at least 12 characters and include at least one uppercase letter, lowercase letter, number, and symbol.
 		</p>

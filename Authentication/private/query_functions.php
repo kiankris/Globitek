@@ -528,7 +528,9 @@
 				$errors[] = "Password must be at least 12 characters long";
 			}else if (strcmp($user["password"],$user["confirm"]) != 0){
 				$errors[] = "Passwords do not match";
-			} 
+			} else if (isset($user["old_password"]) && !v_p($user["old_password"], $user["hashed_password"])) {
+				$errors[] = "Former password is not correct";
+			}
 		}
     return $errors;
   }

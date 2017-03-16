@@ -40,7 +40,8 @@ The following **required** functionality is completed:
 The following advanced user stories are optional:
 
 * Bonus Objective 1\.
-  * [ ]  Identify the subtle Username Enumeration weakness. Include a short description of how the code could be modified to be more secure below:
+  * [X]  Identify the subtle Username Enumeration weakness. Include a short description of how the code could be modified to be more secure below:
+	The weakness is that even though the error messages are the same, if the username exists the submitted password must be checked for validity as opposed to when the username does not exist and the password is not checked. If an attacker can time how long it takes to check the password vs when the password is not checked they can determine whether or not the username exists. A potential solution to this would be to check the password against a dummy password when the username is not found or to throttle the time it takes to log in.
 
 * Bonus Objective 2\.
   * [X]  User password validations only run when the password is not blank.
@@ -53,9 +54,9 @@ The following advanced user stories are optional:
   * [X]  Briefly describe why login still works even after the cost is changed: The password_hash algorithm returns the algorithm, salt, and cost as part of the returned hash. Thus when password_verify is called on the password and hash it will extract the neeeded hashing algorithm, salt, and cost so that it can hash the given password and compare it to the given hash. 
 
 * Bonus Objective 4\.
-  * [ ]  Add "Previous password" to "public/staff/users/edit.php"
-  * [ ]  Validate the previous password before allowing the password to be updated.
-  * [ ]  Require previous password only if new password is being updated (if also completing Bonus Objective 2).
+  * [X]  Add "Previous password" to "public/staff/users/edit.php"
+  * [X]  Validate the previous password before allowing the password to be updated.
+  * [X]  Require previous password only if new password is being updated (if also completing Bonus Objective 2).
 
 * Advanced Objective 1\.
   * [ ]  Implement `password_hash()` on your own as `my_password_hash()`.
