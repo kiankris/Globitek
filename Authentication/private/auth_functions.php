@@ -74,4 +74,24 @@
     }
   }
 
+	function make_salt($length=22){
+		$length = max(1, (int) $length);
+		$rand_str = base64_encode(random_bytes($length));
+		$rand_str = substr($rand_str,0, $length);
+		$salt = strtr($rand_str, '+', '.');
+		return $salt;
+	}
+
+	function my_password_hash($password){
+		$hash_format = "$2y$10$";
+		$salt = make_salt();
+		$format = $hash_format.$salt;
+		$crypt = crypt($password, $format);
+		return $crypt;
+	}
+
+	function my_password_verify($password, $verify){
+		$hpw = crypt($password, $verify);
+		return $hpw === $verify;
+	}
 ?>
