@@ -72,10 +72,6 @@ The following advanced user stories are optional:
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
-## Notes
-
-Describe any challenges encountered while building the app.
-
 ## License
 
     Copyright 2017 Kiankris Villagonzalo
