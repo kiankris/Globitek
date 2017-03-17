@@ -59,12 +59,12 @@ The following advanced user stories are optional:
   * [X]  Require previous password only if new password is being updated (if also completing Bonus Objective 2).
 
 * Advanced Objective 1\.
-  * [ ]  Implement `password_hash()` on your own as `my_password_hash()`.
-  * [ ]  Implement `password_verify()` on your own as `my_password_verify()`.
+  * [X]  Implement `password_hash()` on your own as `my_password_hash()`.
+  * [X]  Implement `password_verify()` on your own as `my_password_verify()`.
 
 * Advanced Objective 2\.
-  * [ ]  Write `generate_strong_password()`
-  * [ ]  Add a suggestion for a 12-character strong password to the new and edit user pages.
+  * [X]  Write `generate_strong_password()`
+  * [X]  Add a suggestion for a 12-character strong password to the new and edit user pages.
 
 ## Video Walkthrough
 

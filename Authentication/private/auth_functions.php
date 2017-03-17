@@ -94,4 +94,14 @@
 		$hpw = crypt($password, $verify);
 		return $hpw === $verify;
 	}
+
+	function generate_strong_password($length=12){
+		$chars = array_merge(range("A", "Z"), range('a','z'), range(0,9), str_split("~!@#$%^&*+=-`_?.;,:'[]{}|"));
+		$len_chars = count($chars) - 1;
+		$password = "";
+		while(strlen($password) < 12){
+			$password .= $chars[random_int(0, $len_chars)] ;
+		}
+		return valid_password($password) ? $password: generate_strong_password();
+	}
 ?>

@@ -58,6 +58,7 @@ if(is_post_request() && request_is_same_domain()) {
     <input type="password" name="password" /><br />
     Password Confirmation:<br />
     <input type="password" name="confirm" /><br />
+		Strong Password suggestion: <br/><?php echo generate_strong_password(); ?>
 		<p>
 			Passwords should be at least 12 characters and include at least one uppercase letter, lowercase letter, number, and symbol.
 		</p>
