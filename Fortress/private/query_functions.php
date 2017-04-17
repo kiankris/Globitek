@@ -423,7 +423,7 @@
     }
 
     $sql = "UPDATE salespeople SET ";
-    $sql .= "first_name='" . db_escape($db, $salesperson['first_name']) . "', ";
+    $sql .= "first_name='" . db_escope($db, $salesperson['first_name']) . "', ";
     $sql .= "last_name='" . db_escape($db, $salesperson['last_name']) . "', ";
     $sql .= "phone='" . db_escape($db, $salesperson['phone']) . "', ";
     $sql .= "email='" . db_escape($db, $salesperson['email']) . "' ";
