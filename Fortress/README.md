@@ -6,8 +6,7 @@ Time spent: **2** hours spent in total
 
 ### Requirements
 
-- [X] All source code and assets necessary for running app
-			all source code except for the db_credentials.php are provided`
+- [X] All source code and assets necessary for running app (except for db_credentials.php which the user needs to make in order to interact with their own database) are provided`
 - [X] `/globitek.sql` containing all required SQL, including the `secrets` table
 - [X] GIF Walkthrough of compromise
 - [X] Brief writeup about the vulnerabilities introduced below
